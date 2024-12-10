@@ -1,0 +1,53 @@
+﻿@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+    ViewData["Title"] = "Ana Sayfa";
+    var message = TempData["Message"] as string;
+    var error = TempData["Error"] as string;
+
+    var isAuthenticated = HttpContextAccessor.HttpContext.User.Identity?.IsAuthenticated ?? false;
+    var isAdmin = HttpContextAccessor.HttpContext.User.IsInRole("Admin");
+}
+
+<h1>Ana Sayfa</h1>
+
+@if (!string.IsNullOrEmpty(message))
+{
+    <div class="alert alert-success" role="alert">
+        @message
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(error))
+{
+    <div class="alert alert-danger" role="alert">
+        @error
+    </div>
+}
+
+@if (!isAuthenticated)
+{
+    <div class="alert alert-warning" role="alert">
+        Tablolara ve veritabanı yedeklemeye ulaşmak için lütfen giriş yapın.
+        <a asp-controller="Account" asp-action="Giris" class="btn btn-primary btn-sm">Giriş Yap</a>
+    </div>
+}
+else
+{
+    @if (isAdmin) // Sadece admin kullanıcılarına göster
+    {
+        <p>Yönetici Paneli</p>
+        <form method="post" asp-action="Yedekle" asp-controller="Admin">
+            <button type="submit" class="btn btn-primary">Veritabanını Yedekle</button>
+        </form>
+
+        <form method="post" asp-action="YedektenDon" asp-controller="Admin" enctype="multipart/form-data">
+            <input type="file" name="selectedFilePath" class="form-control" />
+            <button type="submit" class="btn btn-danger">Yedekten Dön</button>
+        </form>
+    }
+    else
+    {
+        <p>Tablolara ve veritabanı yedeklemeye yalnızca yöneticiler erişebilir.</p>
+    }
+}

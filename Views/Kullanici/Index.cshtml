@@ -1,0 +1,63 @@
+@model KullaniciViewModel
+
+@{
+    ViewData["Title"] = "Kullanici";
+}
+<h1>Kullanıcılar</h1>
+
+<form method="get">
+    <div class="form-group">
+        <label for="search">Arama</label>
+        <input type="text" id="search" name="search" class="form-control" value="@Model.SearchQuery"
+            placeholder="Ad, Soyad veya E-posta ile ara" />
+    </div>
+
+    <!-- Sıralama Seçenekleri -->
+    <div class="form-group">
+        <label for="sortOrder">Sıralama</label>
+        <select id="sortOrder" name="sortOrder" class="form-control">
+            <option value="" selected="@((Model.SortOrder == "") ? "selected" : "")">Varsayılan (Ad'a göre)</option>
+            <option value="ad_desc" selected="@((Model.SortOrder == "ad_desc") ? "selected" : "")">Ad (Z-A)</option>
+            <option value="soyad_asc" selected="@((Model.SortOrder == "soyad_asc") ? "selected" : "")">Soyad (A-Z)
+            </option>
+            <option value="soyad_desc" selected="@((Model.SortOrder == "soyad_desc") ? "selected" : "")">Soyad (Z-A)
+            </option>
+            <option value="rol_asc" selected="@((Model.SortOrder == "rol_asc") ? "selected" : "")">Rol (A-Z)</option>
+            <option value="rol_desc" selected="@((Model.SortOrder == "rol_desc") ? "selected" : "")">Rol (Z-A)</option>
+        </select>
+
+    </div>
+
+    <button type="submit" class="btn btn-primary">Filtrele</button>
+</form>
+
+<!-- Kullanıcı Listesi -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Kullanicilar.FirstOrDefault().Ad)</th>
+            <th>@Html.DisplayNameFor(model => model.Kullanicilar.FirstOrDefault().Soyad)</th>
+            <th>@Html.DisplayNameFor(model => model.Kullanicilar.FirstOrDefault().EPosta)</th>
+            <th>@Html.DisplayNameFor(model => model.Kullanicilar.FirstOrDefault().Adres)</th>
+            <th>@Html.DisplayNameFor(model => model.Kullanicilar.FirstOrDefault().Rol)</th>
+            <th>İşlemler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var kullanici in Model.Kullanicilar)
+        {
+            <tr>
+                <td>@kullanici.Ad</td>
+                <td>@kullanici.Soyad</td>
+                <td>@kullanici.EPosta</td>
+                <td>@kullanici.Adres</td>
+                <td>@kullanici.Rol</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@kullanici.KullaniciID" class="btn btn-warning">Düzenle</a>
+                    <a asp-action="Delete" asp-route-id="@kullanici.KullaniciID" class="btn btn-danger"
+                        onclick="return confirm('Bu kullanıcıyı silmek istediğinizden emin misiniz?')">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

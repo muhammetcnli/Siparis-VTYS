@@ -1,0 +1,28 @@
+@model alisveris.Models.Siparis
+
+@{
+    ViewData["Title"] = "Siparişi Düzenle";
+}
+
+<h1>Siparişi Düzenle</h1>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="SiparisID" />
+    <div class="form-group">
+        <label for="Durum">Toplam Fiyat</label>
+        <input asp-for="ToplamFiyat" class="form-control" />
+        <span asp-validation-for="ToplamFiyat" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="SiparisTarihi">Sipariş Tarihi</label>
+        <input asp-for="SiparisTarihi" class="form-control" />
+        <span asp-validation-for="SiparisTarihi" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="TeslimTarihi">Teslim Tarihi</label>
+        <input asp-for="TeslimTarihi" class="form-control" />
+        <span asp-validation-for="TeslimTarihi" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Kaydet</button>
+    <a asp-action="Index" class="btn btn-secondary">İptal</a>
+</form>

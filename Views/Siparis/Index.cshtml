@@ -1,0 +1,35 @@
+@model IEnumerable<alisveris.Models.Siparis>
+
+<h2>Siparişler</h2>
+<form method="get" asp-action="ExportOrdersToCsv" asp-controller="Admin">
+    <button type="submit" class="btn btn-primary">CSV Olarak Dışa Aktar</button>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Sipariş ID</th>
+            <th>Sipariş Tarihi</th>
+            <th>Toplam Fiyat</th>
+            <th>Teslim Tarihi</th>
+            <th> </th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var siparis in Model)
+    {
+        <tr>
+            <td>@siparis.SiparisID</td>
+            <td>@siparis.SiparisTarihi.ToString("dd/MM/yyyy")</td>
+            <td>@siparis.ToplamFiyat</td>
+            <td>@siparis.TeslimTarihi.ToString("dd/MM/yyyy")</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@siparis.SiparisID" class="btn btn-warning btn-sm">Düzenle</a>
+                    <a asp-action="Delete" asp-route-id="@siparis.SiparisID" class="btn btn-danger btn-sm">Sil</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<a href="@Url.Action("Create", "Siparis")" class="btn btn-primary">Yeni Sipariş Ekle</a>

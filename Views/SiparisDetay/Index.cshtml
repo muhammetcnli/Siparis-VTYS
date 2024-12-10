@@ -1,0 +1,33 @@
+@model IEnumerable<alisveris.Models.SiparisDetayi>
+
+<h2>Sipariş Detayları</h2>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Detay ID</th>
+            <th>Sipariş ID</th>
+            <th>Miktar</th>
+            <th>Ara Toplam</th>
+            <th> </th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var SiparisDetay in Model)
+    {
+        <tr>
+            <td>@SiparisDetay.DetayID</td>
+            <td>@SiparisDetay.SiparisID</td>
+            <td>@SiparisDetay.Miktar</td>
+            <td>@SiparisDetay.AraToplam</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@SiparisDetay.DetayID" class="btn btn-warning btn-sm">Düzenle</a>
+                    <a asp-action="Delete" asp-route-id="@SiparisDetay.DetayID" class="btn btn-danger btn-sm">Sil</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<a href="@Url.Action("Create", "SiparisDetay")" class="btn btn-primary">Yeni Sipariş Detayı Ekle</a>

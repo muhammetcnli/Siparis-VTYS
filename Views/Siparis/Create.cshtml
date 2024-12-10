@@ -1,0 +1,24 @@
+@model alisveris.Models.Siparis
+
+<h2>Sipariş Ekle</h2>
+
+<form asp-action="Create" method="post">
+        <div class="form-group">
+        <label for="Durum">Toplam Fiyat</label>
+        <input asp-for="ToplamFiyat" class="form-control" />
+        <span asp-validation-for="ToplamFiyat" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="SiparisTarihi">Siparis Tarihi</label>
+        <input asp-for="SiparisTarihi" class="form-control" />
+        <span asp-validation-for="SiparisTarihi" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="TeslimTarihi">Teslim Tarihi</label>
+        <input asp-for="TeslimTarihi" class="form-control" />
+        <span asp-validation-for="TeslimTarihi" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Kaydet</button>
+    <a asp-action="Index" class="btn btn-secondary">İptal</a>
+</form>
+

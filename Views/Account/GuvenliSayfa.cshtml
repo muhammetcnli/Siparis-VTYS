@@ -1,0 +1,18 @@
+@{
+    ViewData["Title"] = "Güvenli Sayfa";
+}
+
+<h2>Güvenli Sayfa</h2>
+
+<p>Hoş geldiniz, @User.Identity?.Name! Bu sayfayı görüntüleme yetkiniz var.</p>
+
+<!-- Ekstra içeriğiniz burada olabilir -->
+<p>Bu sayfada yalnızca giriş yapmış kullanıcılar erişebilir.</p>
+
+<form asp-controller="Account" asp-action="LogOut" method="post" id="logoutForm" class="navbar-right">
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <button type="submit" class="btn btn-link navbar-btn navbar-link">Çıkış Yap</button>
+            </li>
+        </ul>
+    </form>
